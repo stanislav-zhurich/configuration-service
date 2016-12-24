@@ -13,7 +13,7 @@ spring:
       server: 
         git:
           uri: https://github.com/stanislav-zhurich/configuration-repo
-          searchPaths: catalog-service
+          searchPaths: catalog-service,gateway-service
           username: stanislav-zhurich
           password: 080587Stas103   
     
