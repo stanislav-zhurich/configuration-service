@@ -7,14 +7,22 @@ eureka:
     fetchRegistry: false
   server:
     waitTimeInMsWhenSyncEmpty: 0
-    
-    
 spring:
   cloud:
     config:
-      server:
-        native:
-          search-locations: file:///d:/config-repo
-  profiles:
-    active: native
+      server: 
+        git:
+          uri: https://github.com/stanislav-zhurich/configuration-repo
+          searchPaths: catalog-service
+          username: stanislav-zhurich
+          password: 080587Stas103   
+    
+#spring:
+  #cloud:
+    #config:
+      #server:
+        #native:
+          #search-locations: file:///d:/config-repo
+  #profiles:
+    #active: native
     
