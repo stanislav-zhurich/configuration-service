@@ -8,12 +8,12 @@ eureka:
   server:
     waitTimeInMsWhenSyncEmpty: 0
 spring:
-  cloud:
-    config:
-      server: 
-        git:
+   cloud:
+     config:
+       server: 
+         git:
           uri: https://github.com/stanislav-zhurich/configuration-repo
-          searchPaths: catalog-service,gateway-service
+          searchPaths: catalog-service,gateway-service,search-service
           username: stanislav-zhurich
           password: 080587Stas103   
     
