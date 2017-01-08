@@ -1,12 +1,19 @@
 buildscript {
 	ext { springBootVersion = '1.4.2.RELEASE' }
 	repositories { mavenCentral() }
-	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
+	dependencies { 
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+		classpath('se.transmode.gradle:gradle-docker:1.2')
+	}
+	
 }
 
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+group='stanislavzhurich'
 
 jar {
 	baseName = 'configuration-service'
@@ -32,3 +39,15 @@ dependencyManagement {
 springBoot {
 	executable = true
 }
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file('src/main/docker/Dockerfile')
+	doFirst {
+	  copy {
+		from jar
+		into stageDir
+	  }
+	}
+  }
