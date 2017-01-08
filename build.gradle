@@ -12,6 +12,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
+apply plugin: 'maven-publish'
 
 group='stanislavzhurich'
 
@@ -38,6 +39,29 @@ dependencyManagement {
 }
 springBoot {
 	executable = true
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java	 
+		}
+	}
+}
+publishing {
+	repositories {
+		maven {
+			credentials {
+				username 'admin'
+				password 'admin123'
+			}
+			if (project.version.endsWith('-SNAPSHOT')) {
+				url 'http://192.168.33.10:8081/nexus/content/repositories/snapshots/'
+			} else {
+				url 'http://192.168.33.10:8081/nexus/content/repositories/releases/'
+			}
+		}
+	}
 }
 
 task buildDocker(type: Docker, dependsOn: build) {
